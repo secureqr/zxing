@@ -24,6 +24,7 @@ import com.google.zxing.common.DecoderResult;
 import com.google.zxing.common.reedsolomon.GenericGF;
 import com.google.zxing.common.reedsolomon.ReedSolomonDecoder;
 import com.google.zxing.common.reedsolomon.ReedSolomonException;
+import com.google.zxing.qrcode.SecureQRMetadataPatch;
 
 import java.util.Map;
 
@@ -147,6 +148,9 @@ public final class Decoder {
 
     // Read codewords
     byte[] codewords = parser.readCodewords();
+
+      SecureQRMetadataPatch.setNumberOfCodeWords(codewords.length);
+
     // Separate into data blocks
     DataBlock[] dataBlocks = DataBlock.getDataBlocks(codewords, version, ecLevel);
 

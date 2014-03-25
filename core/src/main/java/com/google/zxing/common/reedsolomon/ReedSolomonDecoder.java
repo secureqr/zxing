@@ -16,6 +16,8 @@
 
 package com.google.zxing.common.reedsolomon;
 
+import com.google.zxing.qrcode.SecureQRMetadataPatch;
+
 /**
  * <p>Implements Reed-Solomon decoding, as the name implies.</p>
  *
@@ -75,6 +77,10 @@ public final class ReedSolomonDecoder {
     GenericGFPoly sigma = sigmaOmega[0];
     GenericGFPoly omega = sigmaOmega[1];
     int[] errorLocations = findErrorLocations(sigma);
+
+      /* secure qr metadata patch */
+      SecureQRMetadataPatch.setNumberOfErrors(errorLocations.length);
+
     int[] errorMagnitudes = findErrorMagnitudes(omega, errorLocations);
     for (int i = 0; i < errorLocations.length; i++) {
       int position = received.length - 1 - field.log(errorLocations[i]);
